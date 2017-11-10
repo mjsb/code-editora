@@ -13,6 +13,7 @@ class LivrosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         $livros = Livro::query()->paginate(10);
