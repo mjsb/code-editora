@@ -15,22 +15,13 @@
 
             {!! Form::open(['route' => 'livros.store', 'class' => 'form']) !!}
 
-            <div class="form-group">
-                {!! Form::label('title', 'Título') !!}
-                {!! Form::text('title', null, ['class' => 'form-control']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('subtitle', 'Subtítulo') !!}
-                {!! Form::text('subtitle', null, ['class' => 'form-control']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('price', 'Preço') !!}
-                {!! Form::text('price', null, ['class' => 'form-control']) !!}
-            </div>
+                @include('livros._form')
 
-            <div class="form-group">
-                {!! Form::submit('Cadastrar livro', ['class' => 'btn btn-primary']) !!}
-            </div>
+                {!! Html::openFormGroup() !!}
+                    {{--{!! Form::submit('Cadastrar livro', ['class' => 'btn btn-primary']) !!}--}}
+                    {!! Button::primary('Cadastrar livro')->submit() !!}
+                {!! Html::closeFormGroup() !!}
+
             {!! Form::close() !!}
 
         </div>

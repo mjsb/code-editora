@@ -13,16 +13,15 @@
         <div class="row">
             <h3>Editar categoria</h3>
 
-            {!! Form::model($category, ['route' => ['categories.update', 'category' => $category->id], 'class' => 'form', 'method' => 'PUT']) !!}
+            {!! Form::model($category, ['route' => ['categories', 'category' => $category->id], 'class' => 'form', 'method' => 'PUT']) !!}
 
-            <div class="form-group">
-                {!! Form::label('name', 'Nome') !!}
-                {!! Form::text('name', null, ['class' => 'form-control']) !!}
-            </div>
+                @include('categories._form')
 
-            <div class="form-group">
-                {!! Form::submit('Salvar categoria', ['class' => 'btn btn-primary']) !!}
-            </div>
+                {!! Html::openFormGroup('name', $errors) !!}
+                    {{--{!! Form::submit('Salvar categoria', ['class' => 'btn btn-primary']) !!}--}}
+                    {!! Button::primary('Salvar categoria')->submit() !!}
+                {!! Html::closeFormGroup() !!}
+
             {!! Form::close() !!}
 
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LivrosRequest;
 use App\Livro;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class LivrosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index()
     {
         $livros = Livro::query()->paginate(10);
@@ -36,7 +37,7 @@ class LivrosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LivrosRequest $request)
     {
         Livro::create($request->all());
         return redirect()->route('livros.index');
@@ -72,7 +73,7 @@ class LivrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Livro $livro)
+    public function update(LivrosRequest $request, Livro $livro)
     {
 
         $livro->fill($request->all());

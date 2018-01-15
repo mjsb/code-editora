@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c22a6f26375bc873b4889c9127e093da",
+    "content-hash": "623dfe655839e4d3963c213d3d071152",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -127,6 +127,48 @@
                 }
             ],
             "time": "2016-06-13T19:28:20+00:00"
+        },
+        {
+            "name": "caouecs/laravel-lang",
+            "version": "3.0.39",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/caouecs/Laravel-lang.git",
+                "reference": "5823b5299e372791a4b63c9276fb60fd5aa02869"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/5823b5299e372791a4b63c9276fb60fd5aa02869",
+                "reference": "5823b5299e372791a4b63c9276fb60fd5aa02869",
+                "shasum": ""
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.10"
+            },
+            "suggest": {
+                "ablunier/laravel-lang-installer": "Command for easily add languages to a Laravel project",
+                "arcanedev/laravel-lang": "Translations manager and checker for Laravel 5",
+                "overtrue/laravel-lang": "Command to add languages in your project"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "caouecs",
+                    "email": "caouecs@caouecs.net"
+                }
+            ],
+            "description": "Languages for Laravel",
+            "keywords": [
+                "lang",
+                "languages",
+                "laravel",
+                "lpm"
+            ],
+            "time": "2017-11-06T19:03:05+00:00"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -1376,6 +1418,66 @@
             "time": "2017-09-27T21:40:39+00:00"
         },
         {
+            "name": "patricktalmadge/bootstrapper",
+            "version": "5.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/patricktalmadge/bootstrapper.git",
+                "reference": "4180ddf4bb889ed731478a07fcca3492884eb4c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/patricktalmadge/bootstrapper/zipball/4180ddf4bb889ed731478a07fcca3492884eb4c2",
+                "reference": "4180ddf4bb889ed731478a07fcca3492884eb4c2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "~5",
+                "illuminate/routing": "~5",
+                "illuminate/support": "~5",
+                "laravelcollective/html": "~5",
+                "php": ">=5.6.0",
+                "twbs/bootstrap": "~3"
+            },
+            "require-dev": {
+                "akeneo/phpspec-skip-example-extension": "~1.1",
+                "mockery/mockery": "~0.9",
+                "phpspec/phpspec": "~2",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bootstrapper\\": "src\\Bootstrapper",
+                    "DummyClasses\\": "tests\\DummyClasses"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maxime Fabre",
+                    "email": "ehtnam6@gmail.com"
+                },
+                {
+                    "name": "Patrick Talmadge",
+                    "email": "ptalmadge@gmail.com"
+                },
+                {
+                    "name": "Patrick Rose",
+                    "email": "pjr0911025@gmail.com"
+                }
+            ],
+            "description": "Twitter Bootstrap markup generator",
+            "keywords": [
+                "bootstrap",
+                "laravel"
+            ],
+            "time": "2016-08-31T21:53:43+00:00"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.2",
             "source": {
@@ -2469,6 +2571,57 @@
                 "dump"
             ],
             "time": "2017-01-24T13:02:38+00:00"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "v3.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "http://getbootstrap.com",
+            "keywords": [
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ],
+            "time": "2016-07-25T15:51:55+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
