@@ -13,7 +13,7 @@
         <div class="row">
             <h3>Editar categoria</h3>
 
-            {!! Form::model($category, ['route' => ['categories', 'category' => $category->id], 'class' => 'form', 'method' => 'PUT']) !!}
+            {!! Form::model($category, ['route' => ['categories.update', 'category' => $category->id], 'class' => 'form', 'method' => 'PUT']) !!}
 
                 @include('categories._form')
 

@@ -19,7 +19,7 @@
                     @endforeach
                 </ul>
             @endif--}}
-            {!! Form::open(['route' => 'categories', 'class' => 'form']) !!}
+            {!! Form::open(['route' => 'categories.store', 'class' => 'form']) !!}
 
                 @include('categories._form')
 
