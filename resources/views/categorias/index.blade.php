@@ -12,16 +12,16 @@
     <div class="container">
         <div class="row">
             <h3>Listagem de categorias</h3>
-            {!! Button::primary('Nova categoria')->asLinkTo(route('categories.create')) !!}
+            {!! Button::primary('Nova categoria')->asLinkTo(route('categorias.create')) !!}
         </div>
         <div class="row">
             {!!
-                Table::withContents($categories->items())->striped()
-                ->callback('Ações', function ($field, $category){
-                    $linkEdit = route('categories.edit', ['category' => $category->id]);
-                    $linkDestroy = route('categories.destroy', ['category' => $category->id]);
-                    $deleteForm = "delete-form-{$category->id}";
-                    $form = Form::open(['route' => ['categories.destroy', 'category' => $category->id], 'method' => 'DELETE', 'id' => $deleteForm, 'style' => 'disply:none']).Form::close();
+                Table::withContents($categorias->items())->striped()
+                ->callback('Ações', function ($field, $categoria){
+                    $linkEdit = route('categorias.edit', ['categoria' => $categoria->id]);
+                    $linkDestroy = route('categorias.destroy', ['categoria' => $categoria->id]);
+                    $deleteForm = "delete-form-{$categoria->id}";
+                    $form = Form::open(['route' => ['categorias.destroy', 'categoria' => $categoria->id], 'method' => 'DELETE', 'id' => $deleteForm, 'style' => 'disply:none']).Form::close();
                     $anchorDestroy = Button::link('Excluir')->asLinkTo($linkDestroy)->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$deleteForm}\").submit();"]);
                     return "<ul class=\"list-inline\">".
                                 "<li>".Button::link('Editar')->asLinkTo($linkEdit)."</li>".
@@ -32,7 +32,7 @@
                 });
             !!}
 
-            {{ $categories->links() }}
+            {{ $categorias->links() }}
         </div>
     </div>
 @endsection

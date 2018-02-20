@@ -18,6 +18,8 @@ class CreateLivrosTable extends Migration
             $table->string('title')->require();
             $table->string('subtitle')->require();
             $table->float('price')->require();
+            $table->integer('author_id')->unsigned();
+            $table->foreign('author_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

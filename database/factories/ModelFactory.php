@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -23,18 +23,22 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Category::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\Categoria::class, function (Faker\Generator $faker) {
 
     return [
         'name' => ucfirst($faker->unique()->word),
     ];
 });
 
-$factory->define(App\Livro::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\Livro::class, function (Faker\Generator $faker) {
+
+    $repository = app(\App\Repositories\UsersRepository::class);
+    $userId = $repository->all()->random()->id;
 
     return [
         'title' => $faker->word,
-        'subtitle' => $faker->word,
-        'price' => $faker->randomFloat(2,1,6),
+        'subtitle' => $faker->sentence(3),
+        'price' => $faker->randomFloat(2,10,100),
+        'author_id' => $userId
     ];
 });

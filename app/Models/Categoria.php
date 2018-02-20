@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model implements TableInterface
+class Categoria extends Model implements TableInterface
 {
     protected $fillable = [ 'name'];
 
@@ -14,10 +14,15 @@ class Category extends Model implements TableInterface
      *
      * @return array
      */
+
     public function getTableHeaders()
     {
         // TODO: Implement getTableHeaders() method.
         return ['#', 'Nome'];
+    }
+
+    public function livros() {
+        return $this->belongsToMany(Livro::class);
     }
 
     /**

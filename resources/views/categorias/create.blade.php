@@ -19,9 +19,9 @@
                     @endforeach
                 </ul>
             @endif--}}
-            {!! Form::open(['route' => 'categories.store', 'class' => 'form']) !!}
+            {!! Form::open(['route' => 'categorias.store', 'class' => 'form']) !!}
 
-                @include('categories._form')
+                @include('categorias._form')
 
                 {!! Html::openFormGroup('name', $errors) !!}
                     {{--{!! Form::submit('Criar categoria', ['class' => 'btn btn-primary']) !!}--}}

@@ -1,23 +1,32 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Livro extends Model implements TableInterface
 {
-    protected $fillable = ['title', 'subtitle', 'price'];
+    protected $fillable = ['title', 'subtitle', 'price', 'author_id'];
 
     /**
      * A list of headers to be used when a table is displayed
      *
      * @return array
      */
+
+    public function author(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function categorias() {
+        return $this->belongsToMany(Categoria::class);
+    }
+
     public function getTableHeaders()
     {
         // TODO: Implement getTableHeaders() method.
-        return ['#', 'Título', 'Subtitulo', 'Preço'];
+        return ['#', 'Título', 'Autor', 'Preço'];
     }
 
     /**
@@ -35,8 +44,8 @@ class Livro extends Model implements TableInterface
                 return $this->id;
             case 'Título':
                 return $this->title;
-            case 'Subtitulo':
-                return $this->subtitle;
+            case 'Autor':
+                return $this->author->name;
             case 'Preço':
                 return $this->price;
         }

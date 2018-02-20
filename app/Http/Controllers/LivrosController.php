@@ -2,22 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LivrosRequest;
-use App\Livro;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Criteria\FindByTitleCriteria;
+use App\Http\Requests\LivrosCreateRequest;
+use App\Http\Requests\LivrosUpdateRequest;
+use App\Repositories\CategoriasRepository;
+use App\Repositories\LivrosRepository;
 use Illuminate\Http\Request;
 
 class LivrosController extends Controller
 {
+    /**
+     * @var LivrosRepository
+     */
+    private $repository;
+    /**
+     * @var CategoriasRepository
+     */
+    private $categoriasRepository;
+
+    public function __construct(LivrosRepository $repository, CategoriasRepository $categoriasRepository)
+    {
+        $this->repository = $repository;
+        $this->categoriasRepository = $categoriasRepository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        $livros = Livro::query()->paginate(10);
+       /* $search = $request->get('search');
+        $this->repository->pushCriteria(new FindByTitleCriteria($search));*/
+        $livros = $this->repository->paginate(10);
         return view('livros.index', compact('livros'));
     }
 
@@ -28,7 +48,9 @@ class LivrosController extends Controller
      */
     public function create()
     {
-        return view('livros.create');
+        $categorias = $this->categoriasRepository->lists('name', 'id'); //pluck
+        return view('livros.create', compact('categorias'));
+
     }
 
     /**
@@ -37,10 +59,14 @@ class LivrosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LivrosRequest $request)
+    public function store(LivrosCreateRequest $request)
     {
-        Livro::create($request->all());
-        return redirect()->route('livros.index');
+        $data = $request->all();
+        $data['author_id'] = \Auth::user()->id;
+        $this->repository->create($data);
+        $url = $request->get('redirect_to', route('livros.index'));
+        $request->session()->flash('message', 'Livro cadastrado com sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -60,9 +86,9 @@ class LivrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Livro $livro)
+    public function edit($id)
     {
-
+        $livro = $this->repository->find($id);
         return view('livros.edit', compact('livro'));
     }
 
@@ -73,13 +99,13 @@ class LivrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(LivrosRequest $request, Livro $livro)
+    public function update(LivrosUpdateRequest $request, $id)
     {
-
-        $livro->fill($request->all());
-        $livro->save();
-
-        return redirect()->route('livros.index');
+        $data = $request->except(['author_id']);
+        $this->repository->update($data,$id);
+        $url = $request->get('redirect_to', route('livros.index'));
+        $request->session()->flash('message', 'Livro alterado com sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -88,9 +114,10 @@ class LivrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Livro $livro)
+    public function destroy($id)
     {
-        $livro->delete();
+        $this->repository->delete($id);
+        \Session::flash('message', 'Livro excluido com sucesso!');
         return redirect()->route('livros.index');
     }
 }

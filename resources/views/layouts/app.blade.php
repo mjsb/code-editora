@@ -29,7 +29,7 @@
             if(Auth::check()){
                 $links = Navigation::links([
                     [
-                        'link' => route('categories.index'),
+                        'link' => route('categorias.index'),
                         'title' => 'Categorias'
 
                     ],
@@ -48,7 +48,7 @@
                             [
                                 'link' => url('/logout'),
                                 'title' => 'Logout',
-                                'LinkAttributes' => [
+                                'linkAttributes' => [
                                     'onclick' => "event.preventDefault();document.getElementById(\"logout-form\").submit();"
                                 ]
                             ]
@@ -64,6 +64,12 @@
         {!! $navbar !!}
         {!! Form::open(['url' => url('/logout'), 'id' => 'logout-form', 'style' => 'display:none']) !!}
         {!! Form::close() !!}
+
+        @if(Session::has('message'))
+            <div class="container">
+                {!! Alert::success(Session::get('message'))->close() !!}
+            </div>
+        @endif
 
         @yield('content')
     </div>
