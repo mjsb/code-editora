@@ -18,13 +18,20 @@ class LivrosRepositoryEloquent extends BaseRepository implements LivrosRepositor
         'author.name' => 'like'
     ];
 
-    public function create(array $attributes) {
+    public function create(array $attributes)
+    {
+        $model = parent::create($attributes);
+        $model->categorias()->sync($attributes['categorias']);
+        return $model;
+    }
+
+    /*public function create(array $attributes) {
 
         $model = parent::create($attributes);
         $model->categorias()->sync($attributes['categorias']);
         return $model;
 
-    }
+    }*/
 
 
     /**

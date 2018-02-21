@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
+use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;
 
 class Livro extends Model implements TableInterface
 {
+    use FormAccessible;
+
     protected $fillable = ['title', 'subtitle', 'price', 'author_id'];
 
     /**
@@ -20,7 +23,11 @@ class Livro extends Model implements TableInterface
     }
 
     public function categorias() {
-        return $this->belongsToMany(Categoria::class);
+        return $this->belongsToMany(Categoria::class, "livro_categoria");
+    }
+
+    public function formCategoriasAttribute() {
+        return $this->categorias->pluck('id')->all();
     }
 
     public function getTableHeaders()
