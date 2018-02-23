@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Criteria\FindByTitleCriteria;
 use App\Http\Requests\LivrosCreateRequest;
 use App\Http\Requests\LivrosUpdateRequest;
+use App\Models\Categoria;
 use App\Repositories\CategoriasRepository;
 use App\Repositories\LivrosRepository;
 use Illuminate\Http\Request;
@@ -25,7 +26,6 @@ class LivrosController extends Controller
         $this->repository = $repository;
         $this->categoriasRepository = $categoriasRepository;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -48,10 +48,12 @@ class LivrosController extends Controller
      */
     public function create()
     {
-        $categorias = $this->categoriasRepository->lists('name', 'id'); //pluck
+        $categorias = $this->categoriasRepository->lists('name','id');
         return view('livros.create', compact('categorias'));
 
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -89,7 +91,9 @@ class LivrosController extends Controller
     public function edit($id)
     {
         $livro = $this->repository->find($id);
-        return view('livros.edit', compact('livro'));
+        $categorias = $this->categoriasRepository->lists('name','id');
+        return view('livros.edit', compact('livro','categorias'));
+
     }
 
     /**
@@ -99,6 +103,7 @@ class LivrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(LivrosUpdateRequest $request, $id)
     {
         $data = $request->except(['author_id']);

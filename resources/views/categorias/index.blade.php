@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <h3>Listagem de categorias</h3>
-            {!! Button::primary('Nova categoria')->asLinkTo(route('categorias.create')) !!}
+            {!! Button::primary('Nova categoria')->asLinkTo(route('categorias.create'))->addAttributes(['class' => 'pull-right']) !!}
         </div>
         <div class="row">
             {!!
