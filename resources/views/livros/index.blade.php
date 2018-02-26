@@ -30,7 +30,7 @@
                     $linkDestroy = route('livros.destroy', ['livro' => $livro->id]);
                     $deleteForm = "delete-form-{$livro->id}";
                     $form = Form::open(['route' => ['livros.destroy', 'livro' => $livro->id], 'method' => 'DELETE', 'id' => $deleteForm, 'style' => 'disply:none']).Form::close();
-                    $anchorDestroy = Button::link('Excluir')->asLinkTo($linkDestroy)->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$deleteForm}\").submit();"]);
+                    $anchorDestroy = Button::link('Lixeira')->asLinkTo($linkDestroy)->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$deleteForm}\").submit();"]);
                     return "<ul class=\"list-inline\">".
                                 "<li>".Button::link('Editar')->asLinkTo($linkEdit)."</li>".
                                 "<li>|</li>".

@@ -5,10 +5,14 @@ namespace App\Models;
 use Bootstrapper\Interfaces\TableInterface;
 use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Livro extends Model implements TableInterface
 {
     use FormAccessible;
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = ['title', 'subtitle', 'price', 'author_id'];
 
@@ -23,7 +27,7 @@ class Livro extends Model implements TableInterface
     }
 
     public function categorias() {
-        return $this->belongsToMany(Categoria::class, "livro_categoria");
+        return $this->belongsToMany(Categoria::class, "livro_categoria")->withTrashed();
     }
 
     public function formCategoriasAttribute() {

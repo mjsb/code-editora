@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Criteria\CriteriaTrashedTrait;
+use Illuminate\Support\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Models\Categoria;
@@ -14,6 +16,8 @@ use App\Models\Categoria;
 class CategoriasRepositoryEloquent extends BaseRepository implements CategoriasRepository
 {
     use BaseRepositoryTrait;
+    use CriteriaTrashedTrait;
+
     /**
      * Specify Model class name
      *
@@ -33,5 +37,12 @@ class CategoriasRepositoryEloquent extends BaseRepository implements CategoriasR
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    public function listsWithMutators($column, $key = null)
+    {
+        /** @var Collection $collection */
+        $collection = $this->all();
+        return $collection->pluck($column, $key);
+    }
+
 }

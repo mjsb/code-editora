@@ -37,8 +37,9 @@ class LivrosController extends Controller
     {
        /* $search = $request->get('search');
         $this->repository->pushCriteria(new FindByTitleCriteria($search));*/
+        $search = $request->get('search');
         $livros = $this->repository->paginate(10);
-        return view('livros.index', compact('livros'));
+        return view('livros.index', compact('livros', 'search'));
     }
 
     /**
@@ -91,7 +92,8 @@ class LivrosController extends Controller
     public function edit($id)
     {
         $livro = $this->repository->find($id);
-        $categorias = $this->categoriasRepository->lists('name','id');
+        $this->categoriasRepository->withTrashed();
+        $categorias = $this->categoriasRepository->lists('name_trashed','id');
         return view('livros.edit', compact('livro','categorias'));
 
     }
@@ -122,7 +124,7 @@ class LivrosController extends Controller
     public function destroy($id)
     {
         $this->repository->delete($id);
-        \Session::flash('message', 'Livro excluido com sucesso!');
+        \Session::flash('message', 'Livro movido para lixeira com sucesso!');
         return redirect()->route('livros.index');
     }
 }

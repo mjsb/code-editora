@@ -9,9 +9,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Categoria extends Model implements TableInterface
 {
     use SoftDeletes;
+
     protected $dates = ['deleted_at'];
 
     protected $fillable = [ 'name'];
+
+    public function livros() {
+        return $this->belongsToMany(Livro::class);
+    }
+
+    public function getNameTrashedAttribute(){
+
+        return $this->trashed() ? "{$this->name} (INATIVA)": $this->name;
+
+    }
 
     /**
      * A list of headers to be used when a table is displayed
@@ -23,10 +34,6 @@ class Categoria extends Model implements TableInterface
     {
         // TODO: Implement getTableHeaders() method.
         return ['#', 'Nome'];
-    }
-
-    public function livros() {
-        return $this->belongsToMany(Livro::class);
     }
 
     /**
