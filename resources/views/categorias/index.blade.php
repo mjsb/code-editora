@@ -13,6 +13,12 @@
         <div class="row">
             <h3>Listagem de categorias</h3>
             {!! Button::primary('Nova categoria')->asLinkTo(route('categorias.create'))->addAttributes(['class' => 'pull-right']) !!}
+            {!! Form::model([], ['class' => 'form-inline', 'method' => 'GET']) !!}
+                {{--{!! Form::label('search', 'Busca:  ', ['class' => 'control-label']) !!}--}}
+                {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Buscar por...']) !!}
+
+                {!! Button::primary('Buscar')->submit() !!}
+            {!! Form::close() !!}
         </div>
         <div class="row">
             {!!

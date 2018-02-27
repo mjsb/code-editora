@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Criteria\FindByTitleCriteria;
 use App\Http\Requests\LivrosCreateRequest;
 use App\Http\Requests\LivrosUpdateRequest;
-use App\Models\Categoria;
 use App\Repositories\CategoriasRepository;
 use App\Repositories\LivrosRepository;
 use Illuminate\Http\Request;
@@ -92,7 +90,7 @@ class LivrosController extends Controller
     public function edit($id)
     {
         $livro = $this->repository->find($id);
-        $this->categoriasRepository->withTrashed();
+        $this->categoriasRepository->w
         $categorias = $this->categoriasRepository->lists('name_trashed','id');
         return view('livros.edit', compact('livro','categorias'));
 

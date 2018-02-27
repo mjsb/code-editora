@@ -20,7 +20,7 @@ class Categoria extends Model implements TableInterface
 
     public function getNameTrashedAttribute(){
 
-        return $this->trashed() ? "{$this->name} (INATIVA)": $this->name;
+        return $this->trashed() ? "{$this->name} ( INATIVA )": $this->name;
 
     }
 

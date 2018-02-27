@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Criteria\FindByNameCriteria;
 use App\Models\Categoria;
 use App\Http\Requests\CategoriasRequest;
 use App\Repositories\CategoriasRepository;
@@ -32,11 +33,13 @@ class CategoriasController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
-
+        $search = $request->get('search');
+        $this->repository->pushCriteria(new FindByNameCriteria($search));
         $categorias = $this->repository->paginate(10);
-        return view('categorias.index', compact('categorias'));
+        return view('categorias.index', compact('categorias', 'search'));
+
     }
 
     /**
