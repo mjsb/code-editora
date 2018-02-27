@@ -33,8 +33,7 @@ class LivrosController extends Controller
 
     public function index(Request $request)
     {
-       /* $search = $request->get('search');
-        $this->repository->pushCriteria(new FindByTitleCriteria($search));*/
+
         $search = $request->get('search');
         $livros = $this->repository->paginate(10);
         return view('livros.index', compact('livros', 'search'));
@@ -90,8 +89,7 @@ class LivrosController extends Controller
     public function edit($id)
     {
         $livro = $this->repository->find($id);
-        $this->categoriasRepository->w
-        $categorias = $this->categoriasRepository->lists('name_trashed','id');
+        $categorias = $this->categoriasRepository->lists('name','id');
         return view('livros.edit', compact('livro','categorias'));
 
     }
