@@ -163,32 +163,26 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        /*
-         * Package Service Providers...
-         */
+        /* Package Service Providers...  */
+
             //Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
             Collective\Html\HtmlServiceProvider::class,
             Bootstrapper\BootstrapperL5ServiceProvider::class,
             Prettus\Repository\Providers\RepositoryServiceProvider::class,
             \Nwidart\Modules\LaravelModulesServiceProvider::class,
 
-        //
+        /* Laravel-Modules */
 
-        /*
-         *  Laravel-Modules
-         */
+            \CodeEduBook\Providers\CodeEduBookServiceProvider::class,
 
-            \Livro\Providers\LivroServiceProvider::class,
+        /* Application Service Providers... */
 
-        /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        App\Providers\RepositoryServiceProvider::class,
+            App\Providers\AppServiceProvider::class,
+            App\Providers\AuthServiceProvider::class,
+            // App\Providers\BroadcastServiceProvider::class,
+            App\Providers\EventServiceProvider::class,
+            App\Providers\RouteServiceProvider::class,
+            App\Providers\RepositoryServiceProvider::class,
 
     ],
 

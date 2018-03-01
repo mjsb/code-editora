@@ -16,9 +16,7 @@ class FindByTitleCriteria implements CriteriaInterface {
      */
     public function __construct($title)
     {
-
         $this->title = $title;
-
     }
 
 

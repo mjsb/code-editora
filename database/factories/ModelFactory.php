@@ -23,14 +23,14 @@ $factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\Models\Categoria::class, function (Faker\Generator $faker) {
+$factory->define(\CodeEduBook\Models\Categoria::class, function (Faker\Generator $faker) {
 
     return [
         'name' => ucfirst($faker->unique()->word),
     ];
 });
 
-$factory->define(\App\Models\Livro::class, function (Faker\Generator $faker) {
+$factory->define(\CodeEduBook\Models\Livro::class, function (Faker\Generator $faker) {
 
     $repository = app(\App\Repositories\UsersRepository::class);
     $userId = $repository->all()->random()->id;

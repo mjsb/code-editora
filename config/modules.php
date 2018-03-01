@@ -141,7 +141,7 @@ return [
     */
 
     'composer' => [
-        'vendor' => 'mjsb',
+        'vendor' => 'app',
         'author' => [
             'name' => 'Marcio Borges',
             'email' => 'marciojsb@gmail.com',

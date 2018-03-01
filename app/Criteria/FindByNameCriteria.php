@@ -16,9 +16,7 @@ class FindByNameCriteria implements CriteriaInterface {
      */
     public function __construct($name)
     {
-
         $this->name = $name;
-
     }
 
 

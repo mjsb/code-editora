@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace CodeEduBook\Http\Requests;
 
 use CodeEduBook\Repositories\LivrosRepository;
-use Illuminate\Foundation\Http\FormRequest;
+use CodeEduBook\Http\Requests\LivrosCreateRequest;
 
-class LivrosRequest extends FormRequest
+class LivrosUpdateRequest extends LivrosCreateRequest
 {
     /**
      * @var LivrosRepository
@@ -38,18 +38,4 @@ class LivrosRequest extends FormRequest
         return $livro->author_id == \Auth::user()->id;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        $id = $this->route('livro');
-        return [
-            'title' => "required | max:250 | unique:livros,title,$id",
-            'subtitle' => "required | max:250",
-            'price' => 'required |numeric'
-        ];
-    }
 }
