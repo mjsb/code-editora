@@ -3,8 +3,7 @@
 namespace CodeEduBook\Http\Controllers;
 
 use App\Criteria\FindByNameCriteria;
-use App\Http\Controllers\Controller;
-use CodeEduBook\Models\Categoria;
+#use CodeEduBook\Models\Categoria;
 use CodeEduBook\Http\Requests\CategoriasRequest;
 use CodeEduBook\Repositories\CategoriasRepository;
 use Illuminate\Http\Request;
@@ -60,7 +59,6 @@ class CategoriasController extends Controller
      */
     public function store(CategoriasRequest $request)
     {
-
         $this->repository->create($request->all());
         $url = $request->get('redirect_to', route('categorias.index'));
         $request->session()->flash('message', 'Categoria cadastrada com sucesso!');
@@ -100,7 +98,6 @@ class CategoriasController extends Controller
      */
     public function update(CategoriasRequest $request, $id)
     {
-
         $this->repository->update($request->all(),$id);
         $url = $request->get('redirect_to', route('categorias.index'));
         $request->session()->flash('message', 'Categoria alterada com sucesso!');

@@ -15,7 +15,7 @@
 
             {!! Form::model($livro, ['route' => ['livros.update', 'livros' => $livro->id], 'class' => 'form', 'method' => 'PUT']) !!}
 
-                @include('livros._form')
+                @include('codeedubook::livros._form')
 
                 {!! Html::openFormGroup() !!}
                     {{--{!! Form::submit('Salvar livro', ['class' => 'btn btn-primary']) !!}--}}

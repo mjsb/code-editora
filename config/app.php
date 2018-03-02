@@ -174,6 +174,7 @@ return [
         /* Laravel-Modules */
 
             \CodeEduBook\Providers\CodeEduBookServiceProvider::class,
+            \CodeEduUser\Providers\CodeEduUserServiceProvider::class,
 
         /* Application Service Providers... */
 
@@ -258,7 +259,8 @@ return [
         'Tabbable' => Bootstrapper\Facades\Tabbable::class,
         'Table' => Bootstrapper\Facades\Table::class,
         'Thumbnail' => Bootstrapper\Facades\Thumbnail::class,
-        'Module' => \Nwidart\Modules\Module::class
+        'Module' => \Nwidart\Modules\Module::class,
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class
 
     ],
 

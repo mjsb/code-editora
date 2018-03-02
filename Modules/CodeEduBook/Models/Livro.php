@@ -3,7 +3,7 @@
 namespace CodeEduBook\Models;
 
 use CodeEduBook\Models\Categoria;
-use App\Models\User;
+use CodeEduUser\Models\User;
 use Bootstrapper\Interfaces\TableInterface;
 use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +25,7 @@ class Livro extends Model implements TableInterface
      */
 
     public function author(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(\CodeEduUser\Models\User::class);
     }
 
     public function categorias() {

@@ -15,7 +15,7 @@
 
             {!! Form::model($categoria, ['route' => ['categorias.update', 'categoria' => $categoria->id], 'class' => 'form', 'method' => 'PUT']) !!}
 
-                @include('categorias._form')
+                @include('codeedubook::categorias._form')
 
                 {!! Html::openFormGroup('name', $errors) !!}
                     {{--{!! Form::submit('Salvar categoria', ['class' => 'btn btn-primary']) !!}--}}

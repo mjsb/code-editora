@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
+$factory->define(\CodeEduUser\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -32,7 +32,7 @@ $factory->define(\CodeEduBook\Models\Categoria::class, function (Faker\Generator
 
 $factory->define(\CodeEduBook\Models\Livro::class, function (Faker\Generator $faker) {
 
-    $repository = app(\App\Repositories\UsersRepository::class);
+    $repository = app(\CodeEduUser\Repositories\UsersRepository::class);
     $userId = $repository->all()->random()->id;
 
     return [
