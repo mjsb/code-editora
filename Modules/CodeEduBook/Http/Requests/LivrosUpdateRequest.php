@@ -34,8 +34,9 @@ class LivrosUpdateRequest extends LivrosCreateRequest
         }
 
         $livro = $this->repository->find($id);
+        $user = \Auth::user();
 
-        return $livro->author_id == \Auth::user()->id;
+        return $user->can('update',$livro);
     }
 
 }

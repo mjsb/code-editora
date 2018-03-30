@@ -7,16 +7,19 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CodeEduUser\Models\User;
 
 /**
- * Class UsersRepositoryEloquent.
+ * Class UserRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class UsersRepositoryEloquent extends BaseRepository implements UsersRepository
+class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
     public function create(array $attributes)
     {
         $attributes['password'] = User::generatePassword();
         $model = parent::create($attributes);
+        if(isset($attributes['roles'])){
+            $model->roles()->sync($attributes['roles']);
+        }
         \UserVerification::generate($model);
         $subject = config('codeeduuser.email.user_created.subject');
         \UserVerification::emailView('codeeduuser::emails.user-created');
@@ -26,8 +29,16 @@ class UsersRepositoryEloquent extends BaseRepository implements UsersRepository
 
     public function update(array $attributes, $id)
     {
-        $attributes = array_except($attributes,'password');
-        return parent::update($attributes, $id);
+        if(isset($attributes['password'])) {
+            $attributes['password'] = User::generatePassword($attributes['password']);
+        }
+
+        $model = parent::update($attributes, $id);
+        if(isset($attributes['roles'])){
+            $model->roles()->sync($attributes['roles']);
+        }
+
+        return $model;
     }
 
     /**

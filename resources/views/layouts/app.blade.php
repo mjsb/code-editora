@@ -29,6 +29,19 @@
             if(Auth::check()){
                 $links = Navigation::links([
                     [
+                        'Usuários',
+                        [
+                            [
+                                'link' => route('codeeduuser.users.index'),
+                                'title' => 'Listar'
+                            ],
+                            [
+                                'link' => route('codeeduuser.roles.index'),
+                                'title' => 'Funções'
+                            ]
+                        ]
+                    ],
+                    [
                         'link' => route('categorias.index'),
                         'title' => 'Categorias'
 
@@ -76,6 +89,12 @@
         @if(Session::has('message'))
             <div class="container">
                 {!! Alert::success(Session::get('message'))->close() !!}
+            </div>
+        @endif
+
+        @if(Session::has('error'))
+            <div class="container">
+                {!! Alert::danger(Session::get('error'))->close() !!}
             </div>
         @endif
 

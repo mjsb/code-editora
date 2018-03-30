@@ -20,6 +20,7 @@ $factory->define(\CodeEduUser\Models\User::class, function (Faker\Generator $fak
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'verified' => true
     ];
 });
 
@@ -32,13 +33,13 @@ $factory->define(\CodeEduBook\Models\Categoria::class, function (Faker\Generator
 
 $factory->define(\CodeEduBook\Models\Livro::class, function (Faker\Generator $faker) {
 
-    $repository = app(\CodeEduUser\Repositories\UsersRepository::class);
-    $userId = $repository->all()->random()->id;
+    $repository = app(\CodeEduUser\Repositories\UserRepository::class);
+    $authorId = $repository->all()->random()->id;
 
     return [
         'title' => $faker->word,
         'subtitle' => $faker->sentence(3),
         'price' => $faker->randomFloat(2,10,100),
-        'author_id' => $userId
+        'author_id' => $authorId
     ];
 });

@@ -260,7 +260,8 @@ return [
         'Table' => Bootstrapper\Facades\Table::class,
         'Thumbnail' => Bootstrapper\Facades\Thumbnail::class,
         'Module' => \Nwidart\Modules\Module::class,
-        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
+        'PermissionReader' => \CodeEduUser\Facade\PermissionReader::class
 
     ],
 

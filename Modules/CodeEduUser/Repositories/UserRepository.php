@@ -5,11 +5,11 @@ namespace CodeEduUser\Repositories;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Interface UsersRepository.
+ * Interface UserRepository.
  *
  * @package namespace App\Repositories;
  */
-interface UsersRepository extends RepositoryInterface
+interface UserRepository extends RepositoryInterface
 {
     //
 }

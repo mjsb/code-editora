@@ -3,12 +3,18 @@
 namespace CodeEduUser\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
+use Collective\Html\Eloquent\FormAccessible;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements TableInterface
 {
     use Notifiable;
+    use SoftDeletes;
+    use FormAccessible;
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -28,8 +34,12 @@ class User extends Authenticatable implements TableInterface
         'password', 'remember_token',
     ];
 
-    public static function generatePassword(){
-        return bcrypt(str_random(8));
+    public function formRolesAttribute(){
+        return $this->roles->pluck('id')->all();
+    }
+
+    public static function generatePassword($password = null){
+        return !$password ? bcrypt(str_random(8)) : bcrypt($password);
     }
 
     /**
@@ -41,7 +51,7 @@ class User extends Authenticatable implements TableInterface
     public function getTableHeaders()
     {
         // TODO: Implement getTableHeaders() method.
-        return ['#', 'Nome', 'E-mail'];
+        return ['#', 'Nome', 'E-mail', 'Funções'];
     }
 
     /**
@@ -61,7 +71,21 @@ class User extends Authenticatable implements TableInterface
                 return $this->name;
             case 'E-mail':
                 return $this->email;
+            case 'Funções':
+                return $this->roles->implode('name',' | ');
 
         }
+    }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole($role){
+        return is_string($role) ? $this->roles->contains('name', $role) : $role->intersect($this->roles)->count();
+    }
+
+    public function isAdmin(){
+        return $this->hasRole(config('codeeduuser.acl.role_admin'));
     }
 }
