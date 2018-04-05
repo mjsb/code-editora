@@ -7,7 +7,6 @@ namespace CodeEduUser\Annotations\Mapping;
  * @Target("CLASS")
  */
 class Controller{
-
     public $name;
     public $description;
 }

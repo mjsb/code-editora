@@ -7,6 +7,11 @@ use App\Criteria\FindByNameCriteria;
 use CodeEduBook\Http\Requests\CategoriasRequest;
 use CodeEduBook\Repositories\CategoriasRepository;
 use Illuminate\Http\Request;
+use CodeEduUser\Annotations\Mapping as Permission;
+
+/**
+ * @Permission\Controller(name="category-admin", description="Administração de categorias")
+ */
 
 class CategoriasController extends Controller
 {
@@ -29,7 +34,7 @@ class CategoriasController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * @Permission\Action(name="list", description="Listar categorias")
      * @return \Illuminate\Http\Response
      */
 
@@ -43,7 +48,7 @@ class CategoriasController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+     * @Permission\Action(name="store", description="Cadastrar categorias")
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -53,7 +58,7 @@ class CategoriasController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * @Permission\Action(name="store", description="Cadastrar categorias")
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -78,7 +83,7 @@ class CategoriasController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+     * @Permission\Action(name="update", description="Atualizar categorias")
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -90,7 +95,7 @@ class CategoriasController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
+     * @Permission\Action(name="update", description="Atualizar categorias")
      * @param CategoriasRequest|Request $request
      * @param \CodeEduBook\Models\Categoria $categoria
      * @return \Illuminate\Http\Response
@@ -106,7 +111,7 @@ class CategoriasController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     * @Permission\Action(name="delete", description="Excluir categorias")
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

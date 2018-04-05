@@ -27,23 +27,26 @@
 
             $navbar =  Navbar::withBrand(config('app.name'), url('/home'))->inverse();
             if(Auth::check()){
-                $links = Navigation::links([
+                $arrayLinks = [
                     [
                         'Usuários',
                         [
                             [
                                 'link' => route('codeeduuser.users.index'),
-                                'title' => 'Listar'
+                                'title' => 'Listar',
+                                'permission' => 'user-admin/list'
                             ],
                             [
                                 'link' => route('codeeduuser.roles.index'),
-                                'title' => 'Funções'
+                                'title' => 'Funções',
+                                'permission' => 'role-admin/list'
                             ]
                         ]
                     ],
                     [
                         'link' => route('categorias.index'),
-                        'title' => 'Categorias'
+                        'title' => 'Categorias',
+                        'permission' => 'category-admin/list'
 
                     ],
                     [
@@ -51,17 +54,20 @@
                         [
                             [
                                 'link' => route('livros.index'),
-                                'title' => 'Listar'
+                                'title' => 'Listar',
+                                'permission' => 'book-admin/list'
                             ],
                             [
                                 'link' => route('trashed.livros.index'),
-                                'title' => 'Lixeira'
+                                'title' => 'Lixeira',
+                                'permission' => 'book-trashed-admin/list'
                             ]
                         ]
                     ]
 
-                ]);
+                ];
 
+                $links = Navigation::links(\NavbarAuthorization::getLinksAuthorized($arrayLinks));
                 $logout = Navigation::links([
                     [
                         Auth::user()->name,

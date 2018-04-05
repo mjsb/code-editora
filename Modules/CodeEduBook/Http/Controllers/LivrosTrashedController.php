@@ -5,7 +5,11 @@ namespace CodeEduBook\Http\Controllers;
 use App\Http\Controllers\Controller;
 use CodeEduBook\Repositories\LivrosRepository;
 use Illuminate\Http\Request;
+use CodeEduUser\Annotations\Mapping as Permission;
 
+/**
+ * @Permission\Controller(name="book-trashed-admin", description="Administração de livros excluídos")
+ */
 class LivrosTrashedController extends Controller
 {
     /**
@@ -20,7 +24,7 @@ class LivrosTrashedController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * @Permission\Action(name="list", description="Listar livros excluídos")
      * @return \Illuminate\Http\Response
      */
 
@@ -34,6 +38,10 @@ class LivrosTrashedController extends Controller
 
     }
 
+    /**
+     * @Permission\Action(name="list", description="Listar livros excluídos")
+     */
+
     public function show($id) {
 
         $this->repository->onlyTrashed();
@@ -41,6 +49,10 @@ class LivrosTrashedController extends Controller
         return view('codeedubook::trashed.livros.show', compact('livro'));
 
     }
+
+    /**
+     * @Permission\Action(name="restore", description="Restaurar livros excluídos")
+     */
 
     public function update(Request $request, $id) {
 

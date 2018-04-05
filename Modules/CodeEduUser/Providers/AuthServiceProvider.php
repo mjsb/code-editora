@@ -40,14 +40,18 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isAdmin();
         });*/
 
-        /** @var TYPE_NAME $permissionRepository */
-        $permissionRepository = app(PermissionRepository::class);
-        $permissionRepository->pushCriteria(new FindPermissionsResourceCriteria());
-        $permissions = $permissionRepository->all();
-        foreach ($permissions as $p){
-            \Gate::define("{$p->name}/{$p->resource_name}", function ($user) use($p){
-                return $user->hasRole($p->roles);
-            });
+        if (!app()->runningInConsole() || app()->runningUnitTests()) {
+
+            /** @var TYPE_NAME $permissionRepository */
+            $permissionRepository = app(PermissionRepository::class);
+            $permissionRepository->pushCriteria(new FindPermissionsResourceCriteria());
+            $permissions = $permissionRepository->all();
+            foreach ($permissions as $p) {
+                \Gate::define("{$p->name}/{$p->resource_name}", function ($user) use ($p) {
+                    return $user->hasRole($p->roles);
+                });
+            }
+
         }
     }
 }

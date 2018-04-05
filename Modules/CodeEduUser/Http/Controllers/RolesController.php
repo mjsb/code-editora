@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use CodeEduUser\Annotations\Mapping as Permission;
 
 /**
- * @Permission\Controller(name="roles-admin", description="Administração de funções de usuário")
+ * @Permission\Controller(name="role-admin", description="Administração de funções de usuário")
  */
 
 class RolesController extends Controller
@@ -162,8 +162,8 @@ class RolesController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function updatePermission(PermissionRequest $request, $id){
-        $data = $request->only('permissions');
-        $this->repository->update($data,$id);
+        $data = $request->get('permissions',[]);
+        $this->repository->updatePermissions($data,$id);
         $url = $request->get('redirect_to', route('codeeduuser.roles.index'));
         $request->session()->flash('message', 'Permissões alteradas com sucesso!');
         return redirect()->to($url);
