@@ -5,7 +5,7 @@ namespace CodeEduBook\Http\Controllers;
 use App\Criteria\FindByNameCriteria;
 #use CodeEduBook\Models\Categoria;
 use CodeEduBook\Http\Requests\CategoriasRequest;
-use CodeEduBook\Repositories\CategoriasRepository;
+use CodeEduBook\Repositories\CategoriaRepository;
 use Illuminate\Http\Request;
 use CodeEduUser\Annotations\Mapping as Permission;
 
@@ -17,16 +17,16 @@ class CategoriasController extends Controller
 {
 
     /**
-     * @var CategoriasRepository
+     * @var CategoriaRepository
      */
     private $repository;
 
     /**
      * CategoriasController constructor.
-     * @param CategoriasRepository $repository
+     * @param CategoriaRepository $repository
      */
 
-    public function __construct(CategoriasRepository $repository)
+    public function __construct(CategoriaRepository $repository)
     {
         $this->repository = $repository;
     }

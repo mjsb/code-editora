@@ -29,7 +29,11 @@ class LivrosCreateRequest extends FormRequest
             'subtitle' => 'required | max:255',
             'price' => 'required | numeric',
             'categorias' => 'required | array',
-            'categorias.*' => 'exists:categorias,id'
+            'categorias.*' => 'exists:categorias,id',
+            'dedication' => 'required',
+            'description' => 'required',
+            'website' => 'required | max:255 | url',
+            'percent_complete' => 'required | integer | min:0'
         ];
     }
 

@@ -25,6 +25,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
 
         $this->app->bind(\CodeEduUser\Repositories\UserRepository::class, \CodeEduUser\Repositories\UserRepositoryEloquent::class);
+        $this->app->bind(\CodeEduBook\Repositories\CapituloRepository::class, \CodeEduBook\Repositories\CapituloRepositoryEloquent::class);
 
     }
 }

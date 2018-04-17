@@ -3,10 +3,14 @@
 namespace CodeEduBook\Http\Controllers;
 
 use CodeEduBook\Criteria\FindByAuthor;
+use CodeEduBook\Http\Requests\LivrosCoverRequest;
 use CodeEduBook\Http\Requests\LivrosCreateRequest;
 use CodeEduBook\Http\Requests\LivrosUpdateRequest;
-use CodeEduBook\Repositories\CategoriasRepository;
-use CodeEduBook\Repositories\LivrosRepository;
+use CodeEduBook\Models\Livro;
+use CodeEduBook\Pub\BookCoverUpload;
+use CodeEduBook\Pub\BookExport;
+use CodeEduBook\Repositories\CategoriaRepository;
+use CodeEduBook\Repositories\LivroRepository;
 use Illuminate\Http\Request;
 use CodeEduUser\Annotations\Mapping as Permission;
 
@@ -16,19 +20,19 @@ use CodeEduUser\Annotations\Mapping as Permission;
 class LivrosController extends Controller
 {
     /**
-     * @var LivrosRepository
+     * @var LivroRepository
      */
     private $repository;
     /**
-     * @var CategoriasRepository
+     * @var CategoriaRepository
      */
-    private $categoriasRepository;
+    private $categoriaRepository;
 
-    public function __construct(LivrosRepository $repository, CategoriasRepository $categoriasRepository)
+    public function __construct(LivroRepository $repository, CategoriaRepository $categoriaRepository)
     {
         $this->repository = $repository;
         $this->repository->pushCriteria(new FindByAuthor());
-        $this->categoriasRepository = $categoriasRepository;
+        $this->categoriaRepository = $categoriaRepository;
     }
 
     /**
@@ -51,7 +55,7 @@ class LivrosController extends Controller
      */
     public function create()
     {
-        $categorias = $this->categoriasRepository->lists('name','id');
+        $categorias = $this->categoriaRepository->lists('name','id');
         return view('codeedubook::livros.create', compact('categorias'));
 
     }
@@ -89,10 +93,10 @@ class LivrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Livro $livro)
     {
-        $livro = $this->repository->find($id);
-        $categorias = $this->categoriasRepository->lists('name','id');
+        $this->categoriaRepository->withTrashed();
+        $categorias = $this->categoriaRepository->listsWithMutators('name_trashed','id');
         return view('codeedubook::livros.edit', compact('livro','categorias'));
 
     }
@@ -105,10 +109,11 @@ class LivrosController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(LivrosUpdateRequest $request, $id)
+    public function update(LivrosUpdateRequest $request, Livro $livro)
     {
         $data = $request->except(['author_id']);
-        $this->repository->update($data,$id);
+        $data['published'] = $request->get('published',false);
+        $this->repository->update($data, $livro->id);
         $url = $request->get('redirect_to', route('livros.index'));
         $request->session()->flash('message', 'Livro alterado com sucesso!');
         return redirect()->to($url);
@@ -120,10 +125,37 @@ class LivrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Livro $livro)
     {
-        $this->repository->delete($id);
-        \Session::flash('message', 'Livro movido para lixeira com sucesso!');
+        $this->repository->delete($livro->id);
+        \Session::flash('message', 'Livro excluído com sucesso!');
+        return redirect()->to(\URL::previous());
+    }
+
+    /**
+     * @Permission\Action(name="cover", description="Capa do livro")
+     * @param Livro $livro
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function coverForm(Livro $livro){
+        return view('codeedubook::livros.cover', compact('livro'));
+    }
+
+    /**
+     * @Permission\Action(name="cover", description="Capa do livro")
+     */
+    public function coverStore(LivrosCoverRequest $request, Livro $livro, BookCoverUpload $upload){
+
+        $upload->upload($livro,$request->file('file'));
+        $url = $request->get('redorect_to',route('livros.index'));
+        $request->session()->flash('message','Capa adicionada com sucesso!');
+        return redirect()->to($url);
+
+    }
+
+    public function export(Livro $livro){
+        $bookExport = app(BookExport::class);
+        $bookExport->export($livro);
         return redirect()->route('livros.index');
     }
 }

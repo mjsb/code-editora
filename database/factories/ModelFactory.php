@@ -43,9 +43,22 @@ $factory->define(\CodeEduBook\Models\Livro::class, function (Faker\Generator $fa
     $authorId = $repository->all()->random()->id;
 
     return [
-        'title' => $faker->word,
-        'subtitle' => $faker->sentence(3),
+        'title' => $faker->sentence(3),
+        'subtitle' => $faker->sentence(4),
         'price' => $faker->randomFloat(2,10,100),
-        'author_id' => $authorId
+        'author_id' => $authorId,
+        'dedication' => $faker->sentence,
+        'description' => $faker->paragraph,
+        'website' => $faker->url,
+        'percent_complete' => rand(0,100)
     ];
+});
+
+$factory->define(\CodeEduBook\Models\Capitulo::class, function (Faker\Generator $faker){
+
+    return [
+        'name' => $faker->sentence(2),
+        'content' => $faker->paragraph(10),
+    ];
+
 });

@@ -28,15 +28,40 @@
                 ->callback('Ações', function ($field, $livro){
                     $linkEdit = route('livros.edit', ['livro' => $livro->id]);
                     $linkDestroy = route('livros.destroy', ['livro' => $livro->id]);
-                    $deleteForm = "delete-form-{$livro->id}";
-                    $form = Form::open(['route' => ['livros.destroy', 'livro' => $livro->id], 'method' => 'DELETE', 'id' => $deleteForm, 'style' => 'disply:none']).Form::close();
-                    $anchorDestroy = Button::link('Lixeira')->asLinkTo($linkDestroy)->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$deleteForm}\").submit();"]);
+                    $linkCapitulos = route('capitulos.index', ['livro' => $livro->id]);
+                    $linkCapa = route('livros.cover.create', ['livro' => $livro->id]);
+                    $linkExport = route('livros.export', ['livro' => $livro->id]);
+                    $deleteFormId = "delete-form-{$livro->id}";
+                    $deleteForm = Form::open([
+                                        'route' => ['livros.destroy', 'livro' => $livro->id],
+                                        'method' => 'DELETE', 'id' => $deleteFormId,
+                                        'style' => 'disply:none'
+                                    ]).Form::close();
+
+                    $anchorDestroy = Button::link('Lixeira')
+                                        ->asLinkTo($linkDestroy)
+                                        ->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$deleteFormId}\").submit();"]);
+
+                    $exportFormId = "export-form-{$livro->id}";
+                    $exportForm = Form::open([
+                                        'route' => ['livros.export','livro' => $livro->id],
+                                        'method' => 'POST','id' => $exportFormId, 'style' => 'display:none']).Form::close();
+
+                    $anchorExport = Button::link('Exportar')->asLinkTo($linkExport)->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$exportFormId}\").submit();"]);
+
                     return "<ul class=\"list-inline\">".
+                                "<li>".$anchorExport."</li>".
+                                "<li>|</li>".
+                                "<li>".Button::link('Capítulos')->asLinkTo($linkCapitulos)."</li>".
+                                "<li>|</li>".
+                                "<li>".Button::link('Capa')->asLinkTo($linkCapa)."</li>".
+                                "<li>|</li>".
                                 "<li>".Button::link('Editar')->asLinkTo($linkEdit)."</li>".
                                 "<li>|</li>".
                                 "<li>".$anchorDestroy."</li>".
                             "</ul>".
-                            $form;
+                            $deleteForm.
+                            $exportForm;
                 });
             !!}
             {{ $livros->links() }}

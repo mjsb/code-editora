@@ -2,20 +2,20 @@
 
 namespace App\Http\Requests;
 
-use CodeEduBook\Repositories\LivrosRepository;
+use CodeEduBook\Repositories\LivroRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LivrosRequest extends FormRequest
 {
     /**
-     * @var LivrosRepository
+     * @var LivroRepository
      */
     private $repository;
 
     /**
      * LivrosRequest constructor.
      */
-    public function __construct(LivrosRepository $repository)
+    public function __construct(LivroRepository $repository)
     {
         $this->repository = $repository;
     }

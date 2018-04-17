@@ -3,7 +3,7 @@
 namespace CodeEduBook\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use CodeEduBook\Repositories\LivrosRepository;
+use CodeEduBook\Repositories\LivroRepository;
 use Illuminate\Http\Request;
 use CodeEduUser\Annotations\Mapping as Permission;
 
@@ -13,11 +13,11 @@ use CodeEduUser\Annotations\Mapping as Permission;
 class LivrosTrashedController extends Controller
 {
     /**
-     * @var \CodeEduBook\Repositories\LivrosRepository
+     * @var \CodeEduBook\Repositories\LivroRepository
      */
     private $repository;
 
-    public function __construct(LivrosRepository $repository)
+    public function __construct(LivroRepository $repository)
     {
         $this->repository = $repository;
     }

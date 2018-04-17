@@ -9,6 +9,9 @@ class Role extends Model implements TableInterface
 {
     protected $fillable = ['name', 'description'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function permissions(){
         return $this->belongsToMany(Permission::class);
     }

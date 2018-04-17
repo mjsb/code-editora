@@ -12,7 +12,8 @@ return [
     'user_default' => [
         'name' => env('USER_NAME', 'Administrador'),
         'email' => env('USER_EMAIL', 'admin@user.com'),
-        'password' => env('USER_PASSWORD', 'secret')
+        'password' => env('USER_PASSWORD', 'secret'),
+        'verified' => true
     ],
     'acl' => [
         'role_admin' => env('ROLE_ADMIN','Admin'),

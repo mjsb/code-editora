@@ -21,7 +21,7 @@
             @endif--}}
             {!! Form::open(['route' => 'categorias.store', 'class' => 'form']) !!}
 
-                @include('codeedubook::categorias._form')
+                @include('categorias._form')
 
                 {!! Html::openFormGroup('name', $errors) !!}
                     {{--{!! Form::submit('Criar categoria', ['class' => 'btn btn-primary']) !!}--}}

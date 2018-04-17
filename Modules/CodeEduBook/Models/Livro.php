@@ -13,10 +13,22 @@ class Livro extends Model implements TableInterface
 {
     use FormAccessible;
     use SoftDeletes;
+    use BookStorageTrait;
+    use BookThumbnailTrait;
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['title', 'subtitle', 'price', 'author_id'];
+    protected $fillable = [
+        'title',
+        'subtitle',
+        'price',
+        'author_id',
+        'dedication',
+        'description',
+        'website',
+        'percent_complete',
+        'published'
+    ];
 
     /**
      * A list of headers to be used when a table is displayed
