@@ -1,0 +1,87 @@
+easybook:
+    parameters:
+        parser.options:
+            code_block_type: fenced
+book:
+    title: 'Ea velit voluptatem.'
+    author: 'Dr. Kane Aufderhar Sr.'
+    language: pt-br
+    publication_date: null
+    generator:
+        name: WebEditora
+        version: 1
+    contents:
+        -
+            element: cover
+        -
+            element: dedication
+            content: dedication.md
+        -
+            element: toc
+        -
+            element: capitulo
+            number: 1
+            content: 1.md
+        -
+            element: capitulo
+            number: 2
+            content: 2.md
+        -
+            element: capitulo
+            number: 3
+            content: 3.md
+        -
+            element: capitulo
+            number: 4
+            content: 4.md
+        -
+            element: capitulo
+            number: 5
+            content: 5.md
+    editions:
+        kindle:
+            extends: ebook
+            format: mobi
+        ebook:
+            format: epub
+            include_styles: true
+            highlight_cache: true
+            highlight_code: true
+            labels: [chapter, figure]
+            theme: clean
+            toc: { deep: 1, elements: [capitulo] }
+        print:
+            format: pdf
+            highlight_cache: true
+            highlight_code: true
+            isbn: null
+            include_styles: true
+            labels: [capitulo, figure]
+            margin: { top: 25mm, bottom: 25mm, inner: 30mm, outer: 20mm }
+            page_size: A4
+            theme: clean
+            toc: { deep: 2, elements: [capitulo] }
+            two_sided: true
+        web:
+            format: html
+            include_styles: true
+            highlight_cache: true
+            highlight_code: true
+            labels: [capitulo, figure]
+            theme: clean
+            toc: { deep: 2, elements: [capitulo] }
+        website:
+            extends: web
+            format: html_chunked
+            chunk_level: 1
+            images_base_dir: /images/doc-en/
+        easybook-project.org:
+            format: html_chunked
+            chunk_level: 2
+            images_base_dir: /images/doc-en/
+            include_styles: false
+            highlight_cache: false
+            highlight_code: true
+            labels: [capitulo, figure]
+            theme: clean
+            toc: { deep: 2, elements: [capitulo] }
