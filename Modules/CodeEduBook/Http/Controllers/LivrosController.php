@@ -6,9 +6,11 @@ use CodeEduBook\Criteria\FindByAuthor;
 use CodeEduBook\Http\Requests\LivrosCoverRequest;
 use CodeEduBook\Http\Requests\LivrosCreateRequest;
 use CodeEduBook\Http\Requests\LivrosUpdateRequest;
+use CodeEduBook\Jobs\GenerateBook;
 use CodeEduBook\Models\Livro;
+use CodeEduBook\Notifications\BookExported;
 use CodeEduBook\Pub\BookCoverUpload;
-use CodeEduBook\Pub\BookExport;
+#use CodeEduBook\Pub\BookExport;
 use CodeEduBook\Repositories\CategoriaRepository;
 use CodeEduBook\Repositories\LivroRepository;
 use Illuminate\Http\Request;
@@ -154,8 +156,15 @@ class LivrosController extends Controller
     }
 
     public function export(Livro $livro){
-        $bookExport = app(BookExport::class);
+        /*$bookExport = app(BookExport::class);
         $bookExport->export($livro);
+        $bookExport->compress($livro);*/
+        //dispatch(new GenerateBook($livro));
+        \Auth::user()->notify(new BookExported(\Auth::user(), $livro));
         return redirect()->route('livros.index');
+    }
+
+    public function download(Livro $livro){
+        return response()->download($livro->zip_file);
     }
 }

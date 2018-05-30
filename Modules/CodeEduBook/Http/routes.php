@@ -6,6 +6,7 @@
             Route::get('capa','LivrosController@coverForm')->name('livros.cover.create');
             Route::post('capa','LivrosController@coverStore')->name('livros.cover.store');
             Route::post('exportar','LivrosController@export')->name('livros.export');
+            Route::get('download','LivrosController@download')->name('livros.download');
             Route::resource('capitulos','CapitulosController', ['except' => 'show']);
         });
         Route::resource('livros','LivrosController', ['except' => 'show']);

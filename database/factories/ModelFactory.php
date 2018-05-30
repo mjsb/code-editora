@@ -56,9 +56,11 @@ $factory->define(\CodeEduBook\Models\Livro::class, function (Faker\Generator $fa
 
 $factory->define(\CodeEduBook\Models\Capitulo::class, function (Faker\Generator $faker){
 
+    $faker->addProvider(new \CodeEduBook\Faker\ChapterFakerProvider($faker));
+
     return [
         'name' => $faker->sentence(2),
-        'content' => $faker->paragraph(10),
+        'content' => $faker->markdown(rand(2,6)),
     ];
 
 });

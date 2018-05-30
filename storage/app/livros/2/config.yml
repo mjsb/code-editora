@@ -3,12 +3,12 @@ easybook:
         parser.options:
             code_block_type: fenced
 book:
-    title: 'Quia necessitatibus aliquid.'
-    author: 'Mr. Ernie Abernathy III'
-    language: pt-br
+    title: 'Vero corporis officia.'
+    author: 'Mazie Stokes'
+    language: en
     publication_date: null
     generator:
-        name: WebEditora
+        name: CodePub
         version: 1
     contents:
         -
@@ -19,23 +19,23 @@ book:
         -
             element: toc
         -
-            element: capitulo
+            element: chapter
             number: 1
             content: 1.md
         -
-            element: capitulo
+            element: chapter
             number: 2
             content: 2.md
         -
-            element: capitulo
+            element: chapter
             number: 3
             content: 3.md
         -
-            element: capitulo
+            element: chapter
             number: 4
             content: 4.md
         -
-            element: capitulo
+            element: chapter
             number: 5
             content: 5.md
     editions:
@@ -46,35 +46,35 @@ book:
             format: epub
             include_styles: true
             highlight_cache: true
-            highlight_code: true
+            highlight_code: false
             labels: [chapter, figure]
             theme: clean
-            toc: { deep: 1, elements: [capitulo] }
+            toc: { deep: 1, elements: [chapter] }
         print:
             format: pdf
             highlight_cache: true
             highlight_code: true
             isbn: null
             include_styles: true
-            labels: [capitulo, figure]
+            labels: [chapter, figure]
             margin: { top: 25mm, bottom: 25mm, inner: 30mm, outer: 20mm }
             page_size: A4
             theme: clean
-            toc: { deep: 2, elements: [capitulo] }
-            two_sided: true
+            toc: { deep: 2, elements: [chapter] }
+            two_sided: false
         web:
             format: html
             include_styles: true
             highlight_cache: true
             highlight_code: true
-            labels: [capitulo, figure]
+            labels: [chapter, figure]
             theme: clean
-            toc: { deep: 2, elements: [capitulo] }
+            toc: { deep: 2, elements: [chapter] }
         website:
             extends: web
             format: html_chunked
             chunk_level: 1
-            images_base_dir: /images/doc-en/
+            images_base_dir: /img/doc-en/
         easybook-project.org:
             format: html_chunked
             chunk_level: 2
@@ -82,6 +82,6 @@ book:
             include_styles: false
             highlight_cache: false
             highlight_code: true
-            labels: [capitulo, figure]
+            labels: [chapter, figure]
             theme: clean
-            toc: { deep: 2, elements: [capitulo] }
+            toc: { deep: 2, elements: [chapter] }

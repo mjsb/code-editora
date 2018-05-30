@@ -1,0 +1,18 @@
+[2018-05-29 20:48:49] Processed: CodeEduBook\Jobs\GenerateBook
+
+
+                                                                                                         
+  [Symfony\Component\Filesystem\Exception\IOException]                                                   
+  Failed to remove file "/home/vagrant/Code/code-editora/storage/app/livros/2/Output/kindle/book.epub".  
+                                                                                                         
+
+
+publish [--dir[="..."]] [--configuration[="..."]] slug edition
+
+
+[2018-05-29 21:44:55] Processed: CodeEduBook\Jobs\GenerateBook
+[2018-05-29 21:44:55] Processed: CodeEduBook\Jobs\GenerateBook
+[2018-05-29 21:53:12] Processed: CodeEduBook\Jobs\GenerateBook
+[2018-05-29 21:59:39] Processed: CodeEduBook\Jobs\GenerateBook
+[2018-05-30 14:04:58] Processed: CodeEduBook\Jobs\GenerateBook
+[2018-05-30 14:07:31] Processed: CodeEduBook\Jobs\GenerateBook

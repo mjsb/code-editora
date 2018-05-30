@@ -6,6 +6,7 @@ use CodeEduBook\Criteria\FindByBook;
 use CodeEduBook\Criteria\OrderByOrder;
 use CodeEduBook\Models\Livro;
 use CodeEduBook\Repositories\CapituloRepository;
+use CodeEduBook\Util\ExtendedZip;
 use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\Yaml\Parser;
 
@@ -52,7 +53,7 @@ class BookExport{
         $contents = [];
         foreach ($capitulos as $capitulo){
             $contents[] = [
-                'element' => 'capitulo',
+                'element' => 'chapter',
                 'number' => $capitulo->order,
                 'content' => "{$capitulo->order}.md"
             ];
@@ -61,6 +62,10 @@ class BookExport{
         $yml = $this->dumper->dump($config,4);
         file_put_contents($livro->config_file, $yml);
 
+    }
+
+    public function compress(Livro $livro){
+        ExtendedZip::zipTree($livro->output_storage, $livro->zip_file, ExtendedZip::CREATE);
     }
 
     protected function exportContents(Livro $livro, $capitulos){
