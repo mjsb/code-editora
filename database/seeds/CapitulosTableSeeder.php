@@ -17,7 +17,7 @@ class CapitulosTableSeeder extends Seeder
         foreach ($livros as $livro){
             $capitulos = factory(Capitulo::class, 5)->make();
             foreach ($capitulos as $key => $capitulo){
-                $capitulo->book_id = $livro->id;
+                $capitulo->livro_id = $livro->id;
                 $capitulo->order = $key + 1;
                 $capitulo->save();
             }

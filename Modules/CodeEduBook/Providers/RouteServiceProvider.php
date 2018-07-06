@@ -50,6 +50,7 @@ class RouteServiceProvider extends ServiceProvider
 
         \Route::bind('livro',function ($value){
             $livroRepository = app(LivroRepository::class);
+            //autorização
             $livroRepository->pushCriteria(new FindByAuthor());
             return $livroRepository->find($value);
         });

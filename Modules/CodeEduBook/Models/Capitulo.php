@@ -11,7 +11,7 @@ class Capitulo extends Model implements TableInterface
         'name',
         'content',
         'order',
-        'book_id'
+        'livro_id'
     ];
 
     public function book(){

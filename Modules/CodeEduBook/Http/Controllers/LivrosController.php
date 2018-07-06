@@ -159,6 +159,7 @@ class LivrosController extends Controller
         /*$bookExport = app(BookExport::class);
         $bookExport->export($livro);
         $bookExport->compress($livro);*/
+
         //dispatch(new GenerateBook($livro));
         \Auth::user()->notify(new BookExported(\Auth::user(), $livro));
         return redirect()->route('livros.index');
@@ -166,5 +167,13 @@ class LivrosController extends Controller
 
     public function download(Livro $livro){
         return response()->download($livro->zip_file);
+    }
+
+    public function downloadCommon($id){
+        $livro = $this->repository->find($id);
+        if(\Gate::allows('livro-download',$livro->id)){
+            return $this->download($livro);
+        }
+        abort(404);
     }
 }

@@ -7,12 +7,14 @@ use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable implements TableInterface
 {
     use Notifiable;
     use SoftDeletes;
     use FormAccessible;
+    use Billable;
 
     protected $dates = ['deleted_at'];
 
@@ -87,5 +89,10 @@ class User extends Authenticatable implements TableInterface
 
     public function isAdmin(){
         return $this->hasRole(config('codeeduuser.acl.role_admin'));
+    }
+
+    public function routeNotificationForNexmo()
+    {
+        return "5511964077197";
     }
 }

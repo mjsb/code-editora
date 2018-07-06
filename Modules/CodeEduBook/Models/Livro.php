@@ -2,12 +2,16 @@
 
 namespace CodeEduBook\Models;
 
+use CodeEduBook\Events\BookEventPreIndex;
 use CodeEduBook\Models\Categoria;
 use CodeEduUser\Models\User;
 use Bootstrapper\Interfaces\TableInterface;
 use Collective\Html\Eloquent\FormAccessible;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Livro extends Model implements TableInterface
 {
@@ -15,6 +19,9 @@ class Livro extends Model implements TableInterface
     use SoftDeletes;
     use BookStorageTrait;
     use BookThumbnailTrait;
+    use Sluggable;
+    use SluggableScopeHelpers;
+    use Searchable;
 
     protected $dates = ['deleted_at'];
 
@@ -30,6 +37,23 @@ class Livro extends Model implements TableInterface
         'published'
     ];
 
+    /*public function searchable ()
+    {
+        return 'menu_indice_livro';
+    }*/
+
+    public function toSearchableArray ()
+    {
+        $array = $this->toArray();
+
+        $event = new BookEventPreIndex($this);
+        event($event);
+
+        $array = array_merge($array, ['ranking' => $event->getRanking()]);
+        return $array;
+
+    }
+
     /**
      * A list of headers to be used when a table is displayed
      *
@@ -44,8 +68,26 @@ class Livro extends Model implements TableInterface
         return $this->belongsToMany(Categoria::class, "livro_categoria")->withTrashed();
     }
 
+    public function capitulos() {
+        return $this->hasMany(Capitulo::class);
+    }
+
     public function formCategoriasAttribute() {
         return $this->categorias->pluck('id')->all();
+    }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 
     public function getTableHeaders()

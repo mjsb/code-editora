@@ -69,7 +69,7 @@ class CapitulosController extends Controller
     public function store(CapituloCreateRequest $request, Livro $livro)
     {
         $data = $request->all();
-        $data['book_id'] = $livro->id;
+        $data['livro_id'] = $livro->id;
         $this->repository->create($data);
         $url = $request->get('redirect_to', route('capitulos.index',['livro' => $livro->id]));
         $request->session()->flash('message', 'Capitulo cadastrado com sucesso!');
@@ -114,7 +114,7 @@ class CapitulosController extends Controller
     public function update(CapituloUpdateRequest $request, Livro $livro, $capituloId)
     {
         $this->repository->pushCriteria(new FindByBook($livro->id));
-        $data = $request->except(['book_id']);
+        $data = $request->except(['livro_id']);
         $this->repository->update($data,$capituloId);
         $url = $request->get('redirect_to', route('capitulos.index',['livro' => $livro->id]));
         $request->session()->flash('message', 'Capítulo alterado com sucesso!');

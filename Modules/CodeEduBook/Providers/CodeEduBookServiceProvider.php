@@ -4,6 +4,8 @@ namespace CodeEduBook\Providers;
 
 use Folklore\Image\ImageServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Cviebrock\EloquentSluggable\ServiceProvider as SluggableServiceProvider;
+use Laravel\Scout\ScoutServiceProvider;
 
 class CodeEduBookServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class CodeEduBookServiceProvider extends ServiceProvider
         $this->app->register(RepositoryServiceProvider::class);
         $this->app->register(AuthServiceProvider::class);
         $this->app->register(ImageServiceProvider::class);
+        $this->app->register(SluggableServiceProvider::class);
+        $this->app->register(ScoutServiceProvider::class);
     }
 
     /**
@@ -105,9 +109,13 @@ class CodeEduBookServiceProvider extends ServiceProvider
     }
 
     public function publishAssets(){
+
         $sourcePath = __DIR__.'/../resources/assets/js';
+        $libPath = __DIR__.'/../resources/assets/lib';
+
         $this->publishes([
-            $sourcePath => public_path('js')
+            $sourcePath => public_path('js'),
+            $libPath => base_path('resources/assets/js/vendor')
         ], 'assets');
     }
 

@@ -50,7 +50,8 @@ $factory->define(\CodeEduBook\Models\Livro::class, function (Faker\Generator $fa
         'dedication' => $faker->sentence,
         'description' => $faker->paragraph,
         'website' => $faker->url,
-        'percent_complete' => rand(0,100)
+        'percent_complete' => rand(0,100),
+        'published' => 1
     ];
 });
 

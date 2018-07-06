@@ -11,12 +11,13 @@
     <title>{{ config('app.name', 'Laravel') }}!!!</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/store.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
+            'userId' => Auth::check() ? Auth::user()->id : null
         ]); ?>
     </script>
 </head>
@@ -25,7 +26,8 @@
 
         <?php
 
-            $navbar =  Navbar::withBrand(config('app.name'), url('/home'))->inverse();
+            $appName = config('app.name');
+            $navbar =  Navbar::withBrand("<img src=\"/img/logo.png\" title=\"$appName\" alt=\"$appName\">", url('/'));
             if(Auth::check()){
                 $arrayLinks = [
                     [
@@ -68,10 +70,20 @@
                 ];
 
                 $links = Navigation::links(\NavbarAuthorization::getLinksAuthorized($arrayLinks));
-                $logout = Navigation::links([
+
+                if(Auth::user()->id == 1){
+                    $title = 'Todas compras';
+                } else {
+                    $title = 'Minhas compras';
+                }
+                $menuRight = Navigation::links([
                     [
                         Auth::user()->name,
                         [
+                            [
+                                'link' => route('store.orders'),
+                                'title' => $title,
+                            ],
                             [
                                 'link' => url('/logout'),
                                 'title' => 'Logout',
@@ -83,7 +95,27 @@
                     ]
                 ])->right();
 
-                $navbar->withContent($links)->withContent($logout);
+                $navbar->withContent($links)->withContent($menuRight);
+            }else{
+                $formSearch = Form::open(['url' => route('store.search'), 'class' => 'form-inline form-search navbar-right', 'method' => 'GET']).
+                                Html::openFormGroup().
+                                    InputGroup::withContents(Form::text('search', null, ['class' => 'form-control']))
+                                        ->append(Form::submit('', ['class' => 'btn-search'])).
+                                Html::closeFormGroup();
+                              Form::close();
+                $menuRight = Navigation::pills([
+                    [
+                        'link' => url('/register'),
+                        'title' => 'Registrar',
+                        'linkAttributes' => ['class' => "btnnew btnnew-default"]
+                    ],
+                    [
+                        'link' => url('/login'),
+                        'title' => 'Login',
+                        'linkAttributes' => ['class' => "btnnew btnnew-default"]
+                    ]
+                ])->right()->render();
+                $navbar->withContent($menuRight)->withContent("<div>$formSearch</div>");
             }
 
         ?>
@@ -104,8 +136,17 @@
             </div>
         @endif
 
-        @yield('content')
+        @yield('banner')
+        @yield('menu')
+
+        <section>
+            @yield('content')
+        </section>
     </div>
+
+    <footer class="text-center">
+        <p>@ CodePub {{date('Y')}}</p>
+    </footer>
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>

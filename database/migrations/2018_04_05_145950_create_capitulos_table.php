@@ -18,8 +18,8 @@ class CreateCapitulosTable extends Migration
             $table->string('name');
             $table->text('content');
             $table->integer('order')->default(1);
-            $table->integer('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('livros');
+            $table->integer('livro_id')->unsigned();
+            $table->foreign('livro_id')->references('id')->on('livros');
             $table->timestamps();
         });
     }

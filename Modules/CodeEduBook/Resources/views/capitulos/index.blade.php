@@ -11,7 +11,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Capítulos de: {{$livro->title}}</h3>
+            <h3>Capítulos do livro: {{$livro->title}}</h3>
         </div>
         <div class="row">
             {!! Button::primary('Novo capítulo')->asLinkTo(route('capitulos.create', ['livro' => $livro->id]))->addAttributes(['class' => 'pull-right']) !!}

@@ -142,6 +142,7 @@ class RolesController extends Controller
     }
 
     public function editPermission($id){
+
         $role = $this->repository->find($id);
 
         $this->permissionRepository->pushCriteria(new FindPermissionsResourceCriteria());

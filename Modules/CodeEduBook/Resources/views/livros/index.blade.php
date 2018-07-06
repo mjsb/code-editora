@@ -42,12 +42,15 @@
                                         ->asLinkTo($linkDestroy)
                                         ->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$deleteFormId}\").submit();"]);
 
-                    $exportFormId = "export-form-{$livro->id}";
+                    /*$exportFormId = "export-form-{$livro->id}";
                     $exportForm = Form::open([
                                         'route' => ['livros.export','livro' => $livro->id],
-                                        'method' => 'POST','id' => $exportFormId, 'style' => 'display:none']).Form::close();
+                                        'method' => 'POST','id' => $exportFormId, 'style' => 'display:none']).Form::close();*/
 
-                    $anchorExport = Button::link('Exportar')->asLinkTo($linkExport)->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$exportFormId}\").submit();"]);
+                    $anchorExport = Button::link('Exportar')
+                                ->asLinkTo($linkExport)
+                                /* ->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$exportFormId}\").submit();"]);*/
+                                ->addAttributes(['onclick' => "event.preventDefault();exportBook(\"$linkExport\");"]);
 
                     return "<ul class=\"list-inline\">".
                                 "<li>".$anchorExport."</li>".
@@ -60,11 +63,22 @@
                                 "<li>|</li>".
                                 "<li>".$anchorDestroy."</li>".
                             "</ul>".
-                            $deleteForm.
-                            $exportForm;
+                            $deleteForm;
+                            /*$exportForm;*/
                 });
             !!}
             {{ $livros->links() }}
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        function exportBook(route){
+            window.$.get(route, function(data){
+                /*alert('Processo de exportação iniciado!')*/
+                window.notify({message: 'Processo de exportação iniciado!!'});
+            })
+        }
+    </script>
+@endpush

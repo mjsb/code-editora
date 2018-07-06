@@ -3,8 +3,8 @@ easybook:
         parser.options:
             code_block_type: fenced
 book:
-    title: 'Vero corporis officia.'
-    author: 'Mazie Stokes'
+    title: 'Sint quia aliquam.'
+    author: 'Dr. Caesar Parker'
     language: en
     publication_date: null
     generator:
@@ -18,26 +18,6 @@ book:
             content: dedication.md
         -
             element: toc
-        -
-            element: chapter
-            number: 1
-            content: 1.md
-        -
-            element: chapter
-            number: 2
-            content: 2.md
-        -
-            element: chapter
-            number: 3
-            content: 3.md
-        -
-            element: chapter
-            number: 4
-            content: 4.md
-        -
-            element: chapter
-            number: 5
-            content: 5.md
     editions:
         kindle:
             extends: ebook

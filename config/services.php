@@ -31,8 +31,13 @@ return [
 
     'stripe' => [
         'model' => \CodeEduUser\Models\User::class,
-        'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+
+    'nexmo' => [
+        'key' => '52d0057f',
+        'secret' => 'kO8Su9Gx5CIoXctA',
+        'sms_from' => config('app.name'),
+    ]
 
 ];

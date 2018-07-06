@@ -16,7 +16,7 @@ class Categoria extends Model implements TableInterface
     protected $fillable = [ 'name'];
 
     public function livros() {
-        return $this->belongsToMany(Livro::class);
+        return $this->belongsToMany(Livro::class, "livro_categoria");
     }
 
     public function getNameTrashedAttribute(){

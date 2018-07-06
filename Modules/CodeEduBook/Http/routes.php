@@ -14,3 +14,5 @@
             Route::resource('livros', 'LivrosTrashedController', ['except' => ['create', 'store', 'edit', 'destroy']]);
         });
     });
+
+    Route::get('livros/{id}/download-common','LivrosController@downloadCommon')->name('livros.download-common');

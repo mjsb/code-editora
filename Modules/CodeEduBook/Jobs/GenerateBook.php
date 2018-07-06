@@ -4,6 +4,7 @@ namespace CodeEduBook\Jobs;
 
 use CodeEduBook\Models\Livro;
 use CodeEduBook\Pub\BookExport;
+use CodeEduUser\Models\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,16 +17,21 @@ class GenerateBook implements ShouldQueue
      * @var Livro
      */
     private $livro;
+    /**
+     * @var User
+     */
+    private $user;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Livro $livro)
+    public function __construct(User $user, Livro $livro)
     {
         //
         $this->livro = $livro;
+        $this->user = $user;
     }
 
     /**

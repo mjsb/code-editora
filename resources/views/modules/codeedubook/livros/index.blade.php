@@ -16,10 +16,10 @@
         <div class="row">
             {!! Button::primary('Novo livro')->asLinkTo(route('livros.create'))->addAttributes(['class' => 'pull-right']) !!}
             {!! Form::model([], ['class' => 'form-inline', 'method' => 'GET']) !!}
-                {{--{!! Form::label('search', 'Busca:  ', ['class' => 'control-label']) !!}--}}
-                {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Buscar por...']) !!}
+            {{--{!! Form::label('search', 'Busca:  ', ['class' => 'control-label']) !!}--}}
+            {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Buscar por...']) !!}
 
-                {!! Button::primary('Buscar')->submit() !!}
+            {!! Button::primary('Buscar')->submit() !!}
             {!! Form::close() !!}
         </div>
         <div class="row">
@@ -42,12 +42,15 @@
                                         ->asLinkTo($linkDestroy)
                                         ->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$deleteFormId}\").submit();"]);
 
-                    $exportFormId = "export-form-{$livro->id}";
+                    /*$exportFormId = "export-form-{$livro->id}";
                     $exportForm = Form::open([
                                         'route' => ['livros.export','livro' => $livro->id],
-                                        'method' => 'POST','id' => $exportFormId, 'style' => 'display:none']).Form::close();
+                                        'method' => 'POST','id' => $exportFormId, 'style' => 'display:none']).Form::close();*/
 
-                    $anchorExport = Button::link('Exportar')->asLinkTo($linkExport)->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$exportFormId}\").submit();"]);
+                    $anchorExport = Button::link('Exportar')
+                                ->asLinkTo($linkExport)
+                                /* ->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$exportFormId}\").submit();"]);*/
+                                ->addAttributes(['onclick' => "event.preventDefault();exportBook(\"$linkExport\");"]);
 
                     return "<ul class=\"list-inline\">".
                                 "<li>".$anchorExport."</li>".
@@ -60,11 +63,26 @@
                                 "<li>|</li>".
                                 "<li>".$anchorDestroy."</li>".
                             "</ul>".
-                            $deleteForm.
-                            $exportForm;
+                            $deleteForm;
+                            /*$exportForm;*/
                 });
             !!}
             {{ $livros->links() }}
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        function exportBook(route){
+            window.$.ajax({
+                url: route,
+                method: 'POST',
+                data: {_token: window.Laravel.csrfToken},
+                success: function(data){
+                    window.$.notify({message: 'Processo de exportação iniciado!!'},{type: 'success'});
+                }
+            });
+        }
+    </script>
+@endpush

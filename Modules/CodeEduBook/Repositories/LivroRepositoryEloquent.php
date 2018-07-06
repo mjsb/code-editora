@@ -27,7 +27,18 @@ class LivroRepositoryEloquent extends BaseRepository implements LivroRepository
 
     public function create(array $attributes)
     {
-        $model = parent::create($attributes);
+        $model =null;
+        $create = function () use($attributes,&$model){
+            $model = parent::create($attributes);
+        };
+
+        $create = \Closure::bind($create,$this);
+        if(!isset($attributes['published'])){
+            Livro::withoutSyncingToSearch($create);
+        } else {
+            $create();
+        }
+
         $model->categorias()->sync($attributes['categorias']);
         return $model;
     }

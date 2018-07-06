@@ -5,6 +5,7 @@ namespace CodeEduBook\Notifications;
 use CodeEduBook\Models\Livro;
 use CodeEduUser\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\NexmoMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -41,7 +42,7 @@ class BookExported extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return [/*'mail','nexmo',*/'broadcast'];
     }
 
     /**
@@ -60,6 +61,12 @@ class BookExported extends Notification
                     ->line('Obrigado por usar nosso aplicativo!');
     }
 
+    public function toNexmo($notifiable) {
+        return (new NexmoMessage())
+            ->content("O livro {$this->livro->title} foi exportado com sucesso. Fazer o download em "
+                .route('livros.download', ['id' => $this->livro->id]));
+    }
+
     /**
      * Get the array representation of the notification.
      *
@@ -69,7 +76,7 @@ class BookExported extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'livro' => $this->livro->toArray()
         ];
     }
 }

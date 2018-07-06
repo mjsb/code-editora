@@ -33,6 +33,6 @@ class FindByBook implements CriteriaInterface {
      */
     public function apply ($model, RepositoryInterface $repository)
     {
-        return $model->where('book_id', $this->bookId);
+        return $model->where('livro_id', $this->bookId);
     }
 }

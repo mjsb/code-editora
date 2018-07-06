@@ -16,7 +16,7 @@ class CapitulosTableSeeder extends Seeder
         $livros = Livro::all();
         foreach ($livros as $livro){
             factory(Capitulo::class, 5)->make()->each(function ($capitulo) use($livro){
-                $capitulo->book_id = $livro->id;
+                $capitulo-livro_id = $livro->id;
                 $capitulo->save();
             });
         }
