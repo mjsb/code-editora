@@ -7,7 +7,7 @@
 @endsection
 @section('content')
     <div class="content col-md-9">
-        <h2>Favoritos</h2>
+        <h2>Mais vendidos</h2>
         <div class="col-md-12">
             @foreach($produtos as $produto)
                 <div class="col-md-3 book-home">

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Listeners\LivroMakeTotal;
+use App\Listeners\LivroRankingUpdate;
+use CodeEduBook\Events\LivroPreIndexEvent;
+use CodeEduStore\Events\OrderPostProcessEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -13,8 +17,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        LivroPreIndexEvent::class => [
+          LivroMakeTotal::class
+        ],
+        OrderPostProcessEvent::class => [
+            LivroRankingUpdate::class
         ],
     ];
 

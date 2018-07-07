@@ -5,7 +5,7 @@ namespace CodeEduBook\Events;
 
 use CodeEduBook\Models\Livro;
 
-class BookEventPreIndex
+class LivroPreIndexEvent
 {
     /**
      * @var Livro
@@ -42,7 +42,7 @@ class BookEventPreIndex
 
     /**
      * @param int $ranking
-     * @return BookEventPreIndex
+     * @return LivroPreIndexEvent
      */
     public function setRanking ($ranking)
     {

@@ -2,9 +2,11 @@
 
 namespace CodeEduUser\Providers;
 
+use Bootstrapper\BootstrapperL5ServiceProvider;
 use CodeEduUser\Annotations\Mapping\Controller;
 use CodeEduUser\Annotations\PermissionReader;
 use CodeEduUser\Http\Controllers\UsersController;
+use Collective\Html\HtmlServiceProvider;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Annotations\CachedReader;
@@ -51,6 +53,9 @@ class CodeEduUserServiceProvider extends ServiceProvider
         $this->app->register(RepositoryServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(AuthServiceProvider::class);
+        $this->app->register(HtmlServiceProvider::class);
+        $this->app->register(BootstrapperL5ServiceProvider::class);
+
         $this->registerAnnotations();
 
         $this->app->bind(Reader::class, function(){
@@ -64,7 +69,8 @@ class CodeEduUserServiceProvider extends ServiceProvider
 
     protected function registerAnnotations(){
 
-        $loader = require __DIR__ . '/../../../vendor/autoload.php';
+        #$loader = require __DIR__ . '/../../../vendor/autoload.php';
+        $loader = require base_path('vendor/autoload.php');
         AnnotationRegistry::registerLoader([$loader, 'loadClass']);
     }
 

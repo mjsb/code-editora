@@ -166,9 +166,9 @@ return [
         /* Package Service Providers...  */
 
             //Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-            Collective\Html\HtmlServiceProvider::class,
-            Bootstrapper\BootstrapperL5ServiceProvider::class,
-            Prettus\Repository\Providers\RepositoryServiceProvider::class,
+            //Collective\Html\HtmlServiceProvider::class,
+            //Bootstrapper\BootstrapperL5ServiceProvider::class,
+            //Prettus\Repository\Providers\RepositoryServiceProvider::class,
             \Nwidart\Modules\LaravelModulesServiceProvider::class,
 
         /* Laravel-Modules */
@@ -184,7 +184,7 @@ return [
             App\Providers\BroadcastServiceProvider::class,
             App\Providers\EventServiceProvider::class,
             App\Providers\RouteServiceProvider::class,
-            App\Providers\RepositoryServiceProvider::class,
+            \App\Providers\RepositoryServiceProvider::class,
 
     ],
 

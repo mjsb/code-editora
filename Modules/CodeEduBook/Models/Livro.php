@@ -2,7 +2,7 @@
 
 namespace CodeEduBook\Models;
 
-use CodeEduBook\Events\BookEventPreIndex;
+use CodeEduBook\Events\LivroPreIndexEvent;
 use CodeEduBook\Models\Categoria;
 use CodeEduUser\Models\User;
 use Bootstrapper\Interfaces\TableInterface;
@@ -46,7 +46,7 @@ class Livro extends Model implements TableInterface
     {
         $array = $this->toArray();
 
-        $event = new BookEventPreIndex($this);
+        $event = new LivroPreIndexEvent($this);
         event($event);
 
         $array = array_merge($array, ['ranking' => $event->getRanking()]);
